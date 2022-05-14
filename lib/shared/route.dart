@@ -3,7 +3,6 @@ import 'package:todo_app/data/models/task_model.dart';
 import 'package:todo_app/presentation/screens/addtask_screen.dart';
 import 'package:todo_app/presentation/screens/login_page.dart';
 import 'package:todo_app/presentation/screens/my_homepage.dart';
-import 'package:todo_app/presentation/screens/onboarding.dart';
 import 'package:todo_app/presentation/screens/signup_page.dart';
 import 'package:todo_app/presentation/screens/welcome_page.dart';
 import 'package:todo_app/shared/constants/strings.dart';
@@ -11,10 +10,6 @@ import 'package:todo_app/shared/constants/strings.dart';
 class AppRoute {
   Route? generateRoute(RouteSettings settings) {
     switch (settings.name) {
-      case onboarding:
-        {
-          return MaterialPageRoute(builder: (_) => const OnboardingPage());
-        }
 
       case welcomepage:
         {

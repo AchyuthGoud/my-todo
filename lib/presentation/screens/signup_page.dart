@@ -8,7 +8,6 @@ import 'package:todo_app/presentation/widgets/mybutton.dart';
 import 'package:todo_app/presentation/widgets/myindicator.dart';
 import 'package:todo_app/presentation/widgets/mysnackbar.dart';
 import 'package:todo_app/presentation/widgets/mytextfield.dart';
-import 'package:todo_app/shared/constants/assets_path.dart';
 import 'package:todo_app/shared/constants/strings.dart';
 import 'package:todo_app/shared/styles/colors.dart';
 import 'package:todo_app/shared/validators.dart';
@@ -66,7 +65,7 @@ class _SignUpPageState extends State<SignUpPage> {
             // Showing the error message if the user has entered invalid credentials
             MySnackBar.error(
                 message: state.error.toString(),
-                color: Colors.red,
+                color: Colors.black26,
                 context: context);
           }
 
@@ -87,13 +86,11 @@ class _SignUpPageState extends State<SignUpPage> {
                     const EdgeInsets.symmetric(horizontal: 40, vertical: 30),
                 child: Form(
                   key: _formKey,
-                  child: BounceInDown(
-                    duration: const Duration(milliseconds: 1500),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Heey !',
+                          'Sign UP !',
                           style:
                               Theme.of(context).textTheme.headline1?.copyWith(
                                     fontSize: 20.sp,
@@ -104,7 +101,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           height: 1.5.h,
                         ),
                         Text(
-                          'Create a New Account !',
+                          'Create a New Account',
                           style: Theme.of(context)
                               .textTheme
                               .subtitle1
@@ -158,7 +155,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           height: 4.h,
                         ),
                         MyButton(
-                          color: Colors.deepPurple,
+                          color: Colors.blueAccent,
                           width: 80.w,
                           title: 'Sign Up',
                           func: () {
@@ -169,7 +166,7 @@ class _SignUpPageState extends State<SignUpPage> {
                               MySnackBar.error(
                                   message:
                                       'Please Check Your Internet Conection',
-                                  color: Colors.red,
+                                  color: Colors.lightBlue,
                                   context: context);
                             }
                           },
@@ -203,7 +200,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                     .headline1
                                     ?.copyWith(
                                       fontSize: 9.sp,
-                                      color: Colors.deepPurple,
+                                      color: Colors.lightBlueAccent,
                                     ),
                               ),
                             ),
@@ -212,82 +209,12 @@ class _SignUpPageState extends State<SignUpPage> {
                         SizedBox(
                           height: 4.h,
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            _myDivider(),
-                            const SizedBox(
-                              width: 15,
-                            ),
-                            Text(
-                              'Or',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline1
-                                  ?.copyWith(
-                                    fontSize: 9.sp,
-                                    color: Colors.deepPurple,
-                                  ),
-                            ),
-                            const SizedBox(
-                              width: 15,
-                            ),
-                            _myDivider(),
-                          ],
-                        ),
                         SizedBox(
                           height: 4.h,
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            InkWell(
-                              onTap: () {
-                                if (connectivitycubit.state
-                                    is ConnectivityOnlineState) {
-                                  authcubit.googleSignIn();
-                                } else {
-                                  MySnackBar.error(
-                                      message:
-                                          'Please Check Your Internet Conection',
-                                      color: Colors.red,
-                                      context: context);
-                                }
-                              },
-                              child: Image.asset(
-                                MyAssets.googleicon,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                            const SizedBox(
-                              width: 40,
-                            ),
-                            InkWell(
-                              onTap: () {
-                                ScaffoldMessenger.of(context)
-                                    .showSnackBar(SnackBar(
-                                  content: Text(
-                                    'It will be added soon !!',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headline1
-                                        ?.copyWith(
-                                            fontSize: 11.sp,
-                                            color: Appcolors.white),
-                                  ),
-                                  backgroundColor: Colors.deepPurple,
-                                ));
-                              },
-                              child: Image.asset(
-                                MyAssets.facebookicon,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          ],
-                        ),
                       ],
                     ),
-                  ),
+
                 ),
               ),
             ));

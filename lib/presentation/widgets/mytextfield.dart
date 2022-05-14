@@ -13,6 +13,7 @@ class MyTextfield extends StatelessWidget {
   final bool showicon;
   final int? maxlenght;
   final Function()? ontap;
+
   const MyTextfield(
       {Key? key,
       required this.hint,
@@ -43,33 +44,27 @@ class MyTextfield extends StatelessWidget {
             color: Appcolors.black,
           ),
       decoration: InputDecoration(
-          fillColor: Colors.grey.shade200,
+          fillColor: Colors.grey.shade50,
           filled: true,
           hintText: hint,
-          border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(14),
-              borderSide: BorderSide(
-                color: Colors.grey.shade200,
-                width: 0,
-              )),
           contentPadding:
               EdgeInsets.symmetric(horizontal: 5.w, vertical: 2.3.h),
           hintStyle: Theme.of(context).textTheme.headline1?.copyWith(
                 fontSize: 9.sp,
-                color: Colors.deepPurple,
+                color: Colors.black26,
               ),
           prefixIcon: showicon
               ? Icon(
                   icon,
                   size: 22,
-                  color: Colors.deepPurple,
+                  color: Colors.blueGrey,
                 )
               : null,
           suffixIcon: readonly
               ? Icon(
                   icon,
                   size: 22,
-                  color: Colors.deepPurple,
+                  color: Colors.blueGrey,
                 )
               : null),
       autovalidateMode: AutovalidateMode.onUserInteraction,

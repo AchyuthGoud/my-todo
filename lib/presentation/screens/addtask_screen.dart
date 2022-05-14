@@ -38,28 +38,6 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
   late int _selectedReminder;
   late int _selectedcolor;
 
-  List<DropdownMenuItem<int>> menuItems = const [
-    DropdownMenuItem(
-        child: Text(
-          "5 Min Earlier",
-        ),
-        value: 5),
-    DropdownMenuItem(
-        child: Text(
-          "10 Min Earlier",
-        ),
-        value: 10),
-    DropdownMenuItem(
-        child: Text(
-          "15 Min Earlier",
-        ),
-        value: 15),
-    DropdownMenuItem(
-        child: Text(
-          "20 Min Earlier",
-        ),
-        value: 20),
-  ];
 
   @override
   void initState() {
@@ -181,153 +159,10 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
             height: 2.h,
           ),
           Row(
-            children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Start Time',
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline1!
-                          .copyWith(fontSize: 14.sp),
-                    ),
-                    SizedBox(
-                      height: 1.h,
-                    ),
-                    MyTextfield(
-                      hint: DateFormat('HH:mm a').format(DateTime(
-                          0, 0, 0, _starthour.hour, _starthour.minute)),
-                      icon: Icons.watch_outlined,
-                      showicon: false,
-                      readonly: true,
-                      validator: (value) {},
-                      ontap: () {
-                        Navigator.push(
-                            context,
-                            showPicker(
-                              value: _starthour,
-                              is24HrFormat: true,
-                              accentColor: Colors.deepPurple,
-                              onChange: (TimeOfDay newvalue) {
-                                setState(() {
-                                  _starthour = newvalue;
-                                  endhour = TimeOfDay(
-                                    hour: _starthour.hour < 22
-                                        ? _starthour.hour + 1
-                                        : _starthour.hour,
-                                    minute: _starthour.minute,
-                                  );
-                                });
-                              },
-                            ));
-                      },
-                      textEditingController: TextEditingController(),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(
-                width: 4.w,
-              ),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'End Time',
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline1!
-                          .copyWith(fontSize: 14.sp),
-                    ),
-                    SizedBox(
-                      height: 1.h,
-                    ),
-                    MyTextfield(
-                      hint: DateFormat('HH:mm a').format(
-                          DateTime(0, 0, 0, endhour.hour, endhour.minute)),
-                      icon: Icons.watch,
-                      showicon: false,
-                      readonly: true,
-                      validator: (value) {},
-                      ontap: () {
-                        Navigator.push(
-                            context,
-                            showPicker(
-                              value: endhour,
-                              is24HrFormat: true,
-                              minHour: _starthour.hour.toDouble() - 1,
-                              accentColor: Colors.deepPurple,
-                              onChange: (TimeOfDay newvalue) {
-                                setState(() {
-                                  endhour = newvalue;
-                                });
-                              },
-                            ));
-                      },
-                      textEditingController: TextEditingController(),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-          SizedBox(
-            height: 2.h,
-          ),
-          Text(
-            'Reminder',
-            style: Theme.of(context)
-                .textTheme
-                .headline1!
-                .copyWith(fontSize: 14.sp),
-          ),
-          SizedBox(
-            height: 1.h,
-          ),
-          _buildDropdownButton(context),
-          SizedBox(
-            height: 2.h,
-          ),
-          Text(
-            'Colors',
-            style: Theme.of(context)
-                .textTheme
-                .headline1!
-                .copyWith(fontSize: 14.sp),
-          ),
-          SizedBox(
-            height: 1.h,
-          ),
-          Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Wrap(
-                children: List<Widget>.generate(
-                    3,
-                    (index) => Padding(
-                          padding: EdgeInsets.only(right: 2.w),
-                          child: InkWell(
-                            onTap: () {
-                              setState(() {
-                                _selectedcolor = index;
-                              });
-                            },
-                            child: CircleAvatar(
-                                backgroundColor: colors[index],
-                                child: _selectedcolor == index
-                                    ? const Icon(
-                                        Icons.done,
-                                        color: Appcolors.white,
-                                      )
-                                    : null),
-                          ),
-                        )),
-              ),
               MyButton(
-                color: isEditMote ? Colors.green : Colors.deepPurple,
+                color: isEditMote ? Colors.lightBlueAccent : Colors.lightBlueAccent,
                 width: 40.w,
                 title: isEditMote ? "Update Task" : 'Create Task',
                 func: () {
@@ -384,38 +219,6 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
 
       Navigator.pop(context);
     }
-  }
-
-  DropdownButtonFormField<int> _buildDropdownButton(BuildContext context) {
-    return DropdownButtonFormField(
-      value: _selectedReminder,
-      items: menuItems,
-      style: Theme.of(context)
-          .textTheme
-          .headline1!
-          .copyWith(fontSize: 9.sp, color: Colors.deepPurple),
-      icon: Icon(
-        Icons.arrow_drop_down,
-        color: Colors.deepPurple,
-        size: 25.sp,
-      ),
-      decoration: InputDecoration(
-        fillColor: Colors.grey.shade200,
-        filled: true,
-        border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(14),
-            borderSide: BorderSide(
-              color: Colors.grey.shade200,
-              width: 0,
-            )),
-        contentPadding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 2.h),
-      ),
-      onChanged: (int? val) {
-        setState(() {
-          _selectedReminder = val!;
-        });
-      },
-    );
   }
 
   _showdatepicker() async {

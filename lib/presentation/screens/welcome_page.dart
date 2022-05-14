@@ -7,7 +7,6 @@ import 'package:todo_app/bloc/connectivity/connectivity_cubit.dart';
 import 'package:todo_app/presentation/widgets/mybutton.dart';
 import 'package:todo_app/presentation/widgets/myindicator.dart';
 import 'package:todo_app/presentation/widgets/mysnackbar.dart';
-import 'package:todo_app/shared/constants/assets_path.dart';
 import 'package:todo_app/shared/constants/strings.dart';
 import 'package:todo_app/shared/styles/colors.dart';
 
@@ -39,18 +38,11 @@ class WelcomePage extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    BounceInDown(
-                      duration: const Duration(milliseconds: 1500),
-                      child: Image.asset(
-                        MyAssets.welcomesketch,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
                     SizedBox(
-                      height: 4.h,
+                      height: 30.h,
                     ),
                     Text(
-                      'Hello !',
+                      'TASK MANAGER ',
                       style: Theme.of(context)
                           .textTheme
                           .headline1
@@ -59,20 +51,11 @@ class WelcomePage extends StatelessWidget {
                     SizedBox(
                       height: 2.h,
                     ),
-                    Text(
-                      'Welcome to the best Task manager baby !',
-                      textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.subtitle1?.copyWith(
-                            letterSpacing: 3,
-                            fontSize: 10.sp,
-                            wordSpacing: 2,
-                          ),
-                    ),
                     SizedBox(
                       height: 4.h,
                     ),
                     MyButton(
-                      color: Colors.deepPurple,
+                      color: Colors.lightBlueAccent,
                       width: 80.w,
                       title: 'Login',
                       func: () {
@@ -83,7 +66,7 @@ class WelcomePage extends StatelessWidget {
                       height: 2.h,
                     ),
                     MyButton(
-                      color: Colors.deepPurple,
+                      color: Colors.lightBlueAccent,
                       width: 80.w,
                       title: 'Sign Up',
                       func: () {
@@ -93,7 +76,7 @@ class WelcomePage extends StatelessWidget {
                     SizedBox(
                       height: 2.h,
                     ),
-                    _myOutlinedButton(context, authcubit, connectivitycubit),
+                    // _myOutlinedButton(context, authcubit, connectivitycubit),
                   ],
                 ),
               ),
@@ -119,19 +102,10 @@ class WelcomePage extends StatelessWidget {
           } else {
             MySnackBar.error(
                 message: 'Please Check Your Internet Conection',
-                color: Colors.red,
+                color: Colors.lightBlueAccent,
                 context: context);
           }
-        },
-        child: Center(
-          child: Text(
-            'Register Later',
-            style: Theme.of(context).textTheme.headline1?.copyWith(
-                  fontSize: 11.sp,
-                  color: Colors.deepPurple,
-                ),
-          ),
-        ),
+        }
       ),
     );
   }

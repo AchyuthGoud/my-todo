@@ -9,9 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 import 'package:todo_app/bloc/connectivity/connectivity_cubit.dart';
-import 'package:todo_app/bloc/onboarding/onboarding_cubit.dart';
 import 'package:todo_app/presentation/screens/my_homepage.dart';
-import 'package:todo_app/presentation/screens/onboarding.dart';
 import 'package:todo_app/presentation/screens/welcome_page.dart';
 import 'package:todo_app/presentation/widgets/myindicator.dart';
 import 'package:todo_app/shared/constants/consts_variables.dart';
@@ -68,14 +66,12 @@ class MyApp extends StatelessWidget {
                 lazy: false,
                 create: (context) =>
                     ConnectivityCubit()..initializeConnectivity()),
-            BlocProvider(
-              create: (context) => OnboardingCubit(),
-            ),
+
             BlocProvider(create: (context) => AuthenticationCubit()),
           ],
           child: MaterialApp(
             debugShowCheckedModeBanner: false,
-            title: 'Todo App',
+            title: 'Reminder',
             themeMode: ThemeMode.light,
             theme: MyTheme.lightTheme,
             darkTheme: MyTheme.darkTheme,
@@ -92,7 +88,7 @@ class MyApp extends StatelessWidget {
                 if (seen != null) {
                   return const WelcomePage();
                 }
-                return const OnboardingPage();
+                return const WelcomePage();
               },
             ),
           ),

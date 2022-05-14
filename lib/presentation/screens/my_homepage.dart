@@ -16,7 +16,6 @@ import 'package:todo_app/presentation/widgets/myindicator.dart';
 import 'package:todo_app/presentation/widgets/mysnackbar.dart';
 import 'package:todo_app/presentation/widgets/mytextfield.dart';
 import 'package:todo_app/presentation/widgets/task_container.dart';
-import 'package:todo_app/shared/constants/assets_path.dart';
 import 'package:todo_app/shared/constants/consts_variables.dart';
 import 'package:todo_app/shared/constants/strings.dart';
 import 'package:todo_app/shared/services/notification_service.dart';
@@ -54,25 +53,11 @@ class _MyHomePageState extends State<MyHomePage> {
     AuthenticationCubit authenticationCubit = BlocProvider.of(context);
     ConnectivityCubit connectivitycubit = BlocProvider.of(context);
     final user = FirebaseAuth.instance.currentUser;
-    String username = user!.isAnonymous ? 'Anonymous' : 'User';
+    String username = user!.isAnonymous ? 'Unknown' : 'User';
 
     return Scaffold(
         body: MultiBlocListener(
             listeners: [
-          BlocListener<ConnectivityCubit, ConnectivityState>(
-              listener: (context, state) {
-            if (state is ConnectivityOnlineState) {
-              MySnackBar.error(
-                  message: 'You Are Online Now ',
-                  color: Colors.green,
-                  context: context);
-            } else {
-              MySnackBar.error(
-                  message: 'Please Check Your Internet Connection',
-                  color: Colors.red,
-                  context: context);
-            }
-          }),
           BlocListener<AuthenticationCubit, AuthenticationState>(
             listener: (context, state) {
               if (state is UnAuthenticationState) {
@@ -103,10 +88,6 @@ class _MyHomePageState extends State<MyHomePage> {
                             },
                             child: SizedBox(
                               height: 8.h,
-                              child: Image.asset(
-                                profileimages[profileimagesindex],
-                                fit: BoxFit.cover,
-                              ),
                             ),
                           ),
                           SizedBox(
@@ -151,7 +132,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           ),
                           const Spacer(),
                           MyButton(
-                            color: Colors.deepPurple,
+                            color: Colors.lightBlueAccent,
                             width: 40.w,
                             title: '+ Add Task',
                             func: () {
@@ -166,8 +147,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       SizedBox(
                         height: 3.h,
                       ),
-                      _buildDatePicker(context, connectivitycubit),
-                      SizedBox(
+                       SizedBox(
                         height: 4.h,
                       ),
                       Expanded(
@@ -208,11 +188,11 @@ class _MyHomePageState extends State<MyHomePage> {
                                         child: index % 2 == 0
                                             ? BounceInLeft(
                                                 duration: const Duration(
-                                                    milliseconds: 1000),
+                                                    milliseconds: 0),
                                                 child: _taskcontainer)
                                             : BounceInRight(
                                                 duration: const Duration(
-                                                    milliseconds: 1000),
+                                                    milliseconds: 0),
                                                 child: _taskcontainer));
                                   },
                                 )
@@ -252,37 +232,6 @@ class _MyHomePageState extends State<MyHomePage> {
                     (user)
                         ? Container()
                         : Wrap(
-                            children: List<Widget>.generate(
-                              4,
-                              (index) => Padding(
-                                padding: EdgeInsets.only(right: 2.w),
-                                child: InkWell(
-                                  onTap: () async {
-                                    _updatelogo(index, setModalState);
-
-                                    final prefs =
-                                        await SharedPreferences.getInstance();
-                                    await prefs.setInt('plogo', index);
-                                  },
-                                  child: Container(
-                                      height: 8.h,
-                                      width: 8.h,
-                                      decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          image: DecorationImage(
-                                              image: AssetImage(
-                                                  profileimages[index]),
-                                              fit: BoxFit.cover)),
-                                      child: profileimagesindex == index
-                                          ? Icon(
-                                              Icons.done,
-                                              color: Colors.deepPurple,
-                                              size: 8.h,
-                                            )
-                                          : null),
-                                ),
-                              ),
-                            ),
                           ),
                     SizedBox(
                       height: 3.h,
@@ -306,14 +255,14 @@ class _MyHomePageState extends State<MyHomePage> {
                               }
 
                               return MyButton(
-                                color: Colors.green,
+                                color: Colors.greenAccent,
                                 width: 80.w,
                                 title: "Update Profile",
                                 func: () {
                                   if (_usercontroller.text == '') {
                                     MySnackBar.error(
                                         message: 'Name shoud not be empty!!',
-                                        color: Colors.red,
+                                        color: Colors.redAccent,
                                         context: context);
                                   } else {
                                     authenticationCubit.updateUserInfo(
@@ -328,7 +277,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       height: 3.h,
                     ),
                     MyButton(
-                      color: Colors.red,
+                      color: Colors.green,
                       width: 80.w,
                       title: "Log Out",
                       func: () {
@@ -363,17 +312,12 @@ class _MyHomePageState extends State<MyHomePage> {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Image.asset(
-            MyAssets.clipboard,
-            height: 30.h,
-          ),
-          SizedBox(height: 3.h),
           Text(
-            'There Is No Tasks',
+            'No Task On Board',
             style: Theme.of(context)
                 .textTheme
                 .headline1!
-                .copyWith(fontSize: 16.sp),
+                .copyWith(fontSize: 22.sp),
           ),
         ],
       ),
@@ -398,7 +342,7 @@ class _MyHomePageState extends State<MyHomePage> {
             .textTheme
             .subtitle1!
             .copyWith(fontSize: 10.sp, color: Appcolors.black),
-        selectionColor: Colors.deepPurple,
+        selectionColor: Colors.lightBlueAccent,
         onDateChange: (DateTime newdate) {
           setState(() {
             currentdate = newdate;
